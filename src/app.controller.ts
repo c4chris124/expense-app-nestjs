@@ -5,7 +5,7 @@ import { Controller, Get } from "@nestjs/common"
 // @Controller('hi')
 // http://localhost:3333/if(controller decorator) + if(method decorators)
 // http://localhost:3333/hi/hello
-@Controller('report/income')
+@Controller('report/:type')
 export class AppController {
 
   // In order to indicate this will be a GET router we have to use the other decorator call @Get()
@@ -17,8 +17,8 @@ export class AppController {
   }
 
 
-  @Get()
-  getAllIncomeReports2() {
+  @Get(':id')
+  getIncomeReportById() {
     return {}
   }
 }
