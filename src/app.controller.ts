@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common"
+import { Controller, Get, Post, Put, Delete } from "@nestjs/common"
 
 // All in nest js is a class, but to indicate this will be a controller (GET /example/something) we have to use the @Controller decorator
 // @Controller()
@@ -12,14 +12,31 @@ export class AppController {
   // http://localhost:3333/ this is the get, theres is no path yet http://localhost:3333/NOTHINGYET
   // @Get()
   @Get()
-  getAllIncomeReports() {
+  getAllReports() {
     return []
   }
 
 
   @Get(':id')
-  getIncomeReportById() {
+  getReportById() {
     return {}
   }
+
+
+  @Post()
+  createReport() {
+    return 'Created'
+  }
+
+  @Put(':id')
+  updateReport() {
+    return 'Updated'
+  }
+
+  @Delete(':id')
+  deleteReport() {
+    return 'Deleted'
+  }
+
 }
 
