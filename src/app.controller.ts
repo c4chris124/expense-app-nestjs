@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Put, Delete } from "@nestjs/common"
-
+import { Controller, Get, Post, Put, Delete, Param } from "@nestjs/common"
+import { data } from "./data";
+import { ReportType } from "./data";
 // All in nest js is a class, but to indicate this will be a controller (GET /example/something) we have to use the @Controller decorator
 // @Controller()
 // @Controller('hi')
@@ -12,8 +13,11 @@ export class AppController {
   // http://localhost:3333/ this is the get, theres is no path yet http://localhost:3333/NOTHINGYET
   // @Get()
   @Get()
-  getAllReports() {
-    return []
+  getAllReports(
+    @Param('type') type: string
+  ) {
+    const reportType = type === "income" ? ReportType.INCOME : ReportType.EXPENSE
+    return data.report.filter((report) => report.type === reportType)
   }
 
 
