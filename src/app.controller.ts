@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { data } from './data';
 import { ReportType } from './data';
+import { v4 as uuid } from 'uuid';
 // All in nest js is a class, but to indicate this will be a controller (GET /example/something) we have to use the @Controller decorator
 // @Controller()
 // @Controller('hi')
@@ -37,12 +38,27 @@ export class AppController {
   }
 
   @Post()
-  createReport(@Body() body: { amount: number; source: string }) {
-    return 'Created';
+  createReport(
+    @Body() { amount, source }: { amount: number; source: string },
+    @Param('type') type: string,
+  ) {
+    const newReport = {
+      id: uuid(),
+      source,
+      amount,
+      created_at: new Date(),
+      updated_at: new Date(),
+      type: type === 'income' ? ReportType.INCOME : ReportType.EXPENSE,
+    };
+    data.report.push(newReport);
+    return newReport;
   }
 
   @Put(':id')
-  updateReport() {
+  updateReport(
+    @Body() { amount, source }: { amount: number; source: string },
+    @Param('type') type: string,
+  ) {
     return 'Updated';
   }
 
@@ -51,3 +67,4 @@ export class AppController {
     return 'Deleted';
   }
 }
+// 1:21
